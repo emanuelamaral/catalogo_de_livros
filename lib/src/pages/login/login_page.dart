@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../register/register_page.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
 
@@ -45,7 +47,7 @@ class _MyHomePageState extends State<LoginPage> {
           children: [
             Container(
               width: double.infinity,
-              margin: const EdgeInsets.all(7.0),
+              margin: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 // border: Border.all(),
                 borderRadius: BorderRadius.circular(10),
@@ -66,8 +68,8 @@ class _MyHomePageState extends State<LoginPage> {
             ),
             TextButton(
               onPressed: () {
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (context) => RegisterPage()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => RegisterPage()));
               },
               child: const Text(
                 'Cadastrar',
