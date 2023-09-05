@@ -1,5 +1,6 @@
 import 'package:catalogo_de_livros/src/components/card_book.dart';
 import 'package:catalogo_de_livros/src/models/books.dart';
+import 'package:catalogo_de_livros/src/pages/add_book/add_book.dart';
 import 'package:catalogo_de_livros/src/pages/book_content/book_content.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,16 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Catálogo de Livros'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.bookmark_add),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return const AddBook();
+              }));
+            },
+          )
+        ],
       ),
       body: ListView.builder(
           itemCount: booksCatalogue.length,
