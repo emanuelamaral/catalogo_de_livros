@@ -1,3 +1,4 @@
+import 'package:catalogo_de_livros/src/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../register/register_page.dart';
@@ -60,7 +61,10 @@ class _MyHomePageState extends State<LoginPage> {
                 ),
               ),
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  },
                   child: const Text(
                     'Login',
                     style: TextStyle(fontSize: 18, color: Colors.white),
