@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../models/books.dart';
+import '../models/book.dart';
 
 class CardBook extends StatelessWidget {
-  final Book livros;
+  final Book book;
 
-  CardBook({required this.livros});
+  CardBook({required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,8 @@ class CardBook extends StatelessWidget {
         children: [
           const Icon(Icons.menu_book, size: 160),
           ListTile(
-            title: Text(livros.title),
-            subtitle: Text(livros.autor),
+            title: Text(book.title),
+            subtitle: Text(book.autor),
           ),
         ],
       ),
