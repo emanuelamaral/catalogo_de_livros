@@ -1,14 +1,17 @@
 import 'package:catalogo_de_livros/src/components/card_book.dart';
-import 'package:catalogo_de_livros/src/models/books.dart';
 import 'package:catalogo_de_livros/src/pages/add_book/add_book.dart';
 import 'package:catalogo_de_livros/src/pages/book_content/book_content.dart';
+import 'package:catalogo_de_livros/src/shared/provider/catalogue/book_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final bookList = context.read<BookList>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -25,44 +28,19 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: ListView.builder(
-          itemCount: booksCatalogue.length,
+          itemCount: bookList.books.length,
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BookContent(booksCatalogue[index]),
+                      builder: (context) => BookContent(bookList.books[index]),
                     ));
               },
-              child: CardBook(livros: booksCatalogue[index]),
+              child: CardBook(book: bookList.books[index]),
             );
           }),
     );
   }
 }
-
-List<Book> booksCatalogue = [
-  Book(
-    title: 'Introdução ao Pentest',
-    autor: 'Daniel Moreno',
-    genre: 'Computação e Tecnologia',
-    publicationYear: 2019,
-  ),
-  Book(
-      title:
-          "Técnicas de Invasão: Aprenda as técnicas usadas por hackers em invasões reais ",
-      autor: "Bruno Fraga",
-      genre: 'Computação e Tecnologia',
-      publicationYear: 2019),
-  Book(
-      title: 'A Arte da Guerra: Edição Especial ',
-      autor: 'Sun Tzu',
-      genre: 'Autodesenvolvimento',
-      publicationYear: 2021),
-  Book(
-      title: "It: A coisa ",
-      autor: "Stephen King",
-      genre: "Terror",
-      publicationYear: 2014)
-];
