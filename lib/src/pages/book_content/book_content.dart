@@ -1,4 +1,4 @@
-import 'package:catalogo_de_livros/src/models/books.dart';
+import 'package:catalogo_de_livros/src/models/book.dart';
 import 'package:flutter/material.dart';
 
 import '../add_book/edit_book.dart';
