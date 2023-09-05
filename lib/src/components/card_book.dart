@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../models/livros.dart';
+import '../models/books.dart';
 
-class CardLivro extends StatelessWidget {
-  final Livro livros;
+class CardBook extends StatelessWidget {
+  final Book livros;
 
-  CardLivro({required this.livros});
+  CardBook({required this.livros});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +13,9 @@ class CardLivro extends StatelessWidget {
       margin: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          Image.network(livros.genero),
+          const Icon(Icons.menu_book, size: 160),
           ListTile(
-            title: Text(livros.titulo),
+            title: Text(livros.title),
             subtitle: Text(livros.autor),
           ),
         ],
