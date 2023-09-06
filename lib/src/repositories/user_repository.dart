@@ -23,8 +23,7 @@ class UserRepository extends ChangeNotifier {
       await _initRepository();
     }
     database = dbAux;
-    final newUser = UserModel(
-        id: Random().nextInt(100) + 1, email: email, password: password);
+    final newUser = UserModel(email: email, password: password);
     final id = await database.insert('tb_usuario', newUser.toMap());
     notifyListeners();
     return id;
