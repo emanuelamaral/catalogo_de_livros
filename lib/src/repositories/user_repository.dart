@@ -29,4 +29,20 @@ class UserRepository extends ChangeNotifier {
     notifyListeners();
     return id;
   }
+
+  getUser(String email, String password) async {
+    if (dbAux == null) {
+      await _initRepository();
+    }
+    database = dbAux;
+    final result = await database.query('tb_usuario',
+        where: 'email = ? AND password = ?', whereArgs: [email, password]);
+
+    if (result.isNotEmpty) {
+      final user = result.first;
+      return UserModel(id: user['id'] as int, email: email, password: password);
+    } else {
+      return;
+    }
+  }
 }
