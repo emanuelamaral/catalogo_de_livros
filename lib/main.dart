@@ -1,3 +1,4 @@
+import 'package:catalogo_de_livros/src/repositories/book_repository.dart';
 import 'package:catalogo_de_livros/src/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,7 @@ import 'src/shared/provider/catalogue/book_list.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => BookRepository()),
     ChangeNotifierProvider(create: (context) => BookList()),
     ChangeNotifierProvider(create: (context) => UserRepository()),
   ], child: const MyApp()));
