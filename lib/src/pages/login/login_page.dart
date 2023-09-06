@@ -1,6 +1,8 @@
 import 'package:catalogo_de_livros/src/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../repositories/user_repository.dart';
 import '../register/register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,17 +11,29 @@ class LoginPage extends StatefulWidget {
   final String title;
 
   @override
-  State<LoginPage> createState() => _MyHomePageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _MyHomePageState extends State<LoginPage> {
-  // int _counter = 0;
+class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
+  void _submitForm(BuildContext context) async {
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      return;
+    }
+
+    final userRepository = Provider.of<UserRepository>(context, listen: false);
+    dynamic user = await userRepository.getUser(email, password);
+
+    if (user != null) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const HomePage()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +43,20 @@ class _MyHomePageState extends State<LoginPage> {
         title: Text(widget.title),
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        const Padding(
-            padding: EdgeInsets.all(8.0),
+        Padding(
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
-              decoration: InputDecoration(
+              controller: emailController,
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: 'Email'),
               keyboardType: TextInputType.emailAddress,
             )),
-        const Padding(
-            padding: EdgeInsets.all(8.0),
+        Padding(
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
+              controller: passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: 'Senha'),
             )),
         Column(
@@ -61,10 +77,7 @@ class _MyHomePageState extends State<LoginPage> {
                 ),
               ),
               child: TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  },
+                  onPressed: () => _submitForm(context),
                   child: const Text(
                     'Login',
                     style: TextStyle(fontSize: 18, color: Colors.white),
@@ -72,8 +85,8 @@ class _MyHomePageState extends State<LoginPage> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => RegisterPage()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const RegisterPage()));
               },
               child: const Text(
                 'Cadastrar',
