@@ -1,4 +1,3 @@
-import 'package:catalogo_de_livros/src/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +39,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        automaticallyImplyLeading: false,
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Padding(

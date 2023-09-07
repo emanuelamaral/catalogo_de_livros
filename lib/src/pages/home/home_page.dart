@@ -30,6 +30,7 @@ class HomePage extends StatelessWidget {
               },
             )
           ],
+          automaticallyImplyLeading: false,
         ),
         body: FutureBuilder<List<Book>>(
             future: books,
