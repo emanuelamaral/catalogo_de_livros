@@ -8,19 +8,21 @@ class DB {
   static Database? _database;
 
   Future<Database> get database async {
-    if (_database == null) {
-      await _initDatabase();
+    if (_database != null) {
+      return _database!;
     }
+    await _initDatabase();
     return _database!;
+    // return _database!;
   }
 
   Future<void> _initDatabase() async {
     final path = await getDatabasesPath();
     final databasePath = join(path, 'catalogo_de_livro4.db');
 
-    if (await databaseExists(databasePath)) {
-      await deleteDatabase(databasePath);
-    }
+    // if (await databaseExists(databasePath)) {
+    //   await deleteDatabase(databasePath);
+    // }
 
     // return await openDatabase(
     //   join(path, 'catalogo_de_livro4.db'),
