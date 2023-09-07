@@ -35,6 +35,53 @@ class BookRepository extends ChangeNotifier {
     }).toList();
   }
 
+  getBook(int id) async {
+    if (dbAux == null) {
+      await _initRepository();
+    }
+    database = dbAux;
+
+    final bookMap =
+        await database.query("tb_livro", where: 'id = ?', whereArgs: [id]);
+
+    if (bookMap.isNotEmpty) {
+      final book = bookMap.first;
+      return Book(
+          id: book['id'] as int,
+          title: book['title'] as String,
+          autor: book['autor'] as String,
+          genre: book['genre'] as String,
+          publicationYear: book['publication_year'] as num);
+    }
+
+    return;
+  }
+
+  Future<void> updateBook(int id, String title, String autor, String genre,
+      num publicationYear) async {
+    if (dbAux == null) {
+      await _initRepository();
+    }
+    database = dbAux;
+
+    final updatedBook = Book(
+      id: id,
+      title: title,
+      autor: autor,
+      genre: genre,
+      publicationYear: publicationYear,
+    );
+
+    try {
+      await database.update('tb_livro', updatedBook.toMap(),
+          where: 'id = ?', whereArgs: [id]);
+    } catch (e) {
+      print('Erro durante a atualização: $e');
+    } finally {
+      notifyListeners();
+    }
+  }
+
   Future<int> addBook(
       String title, String autor, String genre, num publicationYear) async {
     if (dbAux == null) {
