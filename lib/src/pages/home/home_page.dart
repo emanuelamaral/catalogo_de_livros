@@ -56,22 +56,6 @@ class HomePage extends StatelessWidget {
                           },
                           child: CardBook(book: book));
                     });
-
-                //   ListView.builder(
-                //       itemCount: bookList,
-                //       itemBuilder: (context, index) {
-                //         return GestureDetector(
-                //           onTap: () {
-                //             Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                   builder: (context) => BookContent(bookList.books[index]),
-                //                 ));
-                //           },
-                //           child: CardBook(book: bookList.books[index]),
-                //         );
-                //       }),
-                // );
               }
             }));
   }
