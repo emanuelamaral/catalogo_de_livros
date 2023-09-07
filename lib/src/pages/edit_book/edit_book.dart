@@ -39,13 +39,26 @@ class _EditBookState extends State<EditBook> {
     await bookRepository.updateBook(
         widget.book.id!, title, autor, genre, publicationYear);
 
-    Navigator.of(context).pop();
+    Navigator.of(context).popUntil((route) {
+      return route.settings.name == '/home';
+    });
+  }
+
+  void _removeBook(BuildContext context) async {
+    final bookRepository = Provider.of<BookRepository>(context, listen: false);
+
+    await bookRepository.removeBook(widget.book.id!);
+
+    Navigator.of(context).popUntil((route) {
+      return route.settings.name == '/home';
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
@@ -99,11 +112,9 @@ class _EditBookState extends State<EditBook> {
                   style: TextStyle(fontSize: 18, color: Colors.white))),
         ),
         TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+            onPressed: () => _removeBook(context),
             child: const Text("Remover Livro"))
       ],
-    ));
+    )));
   }
 }
