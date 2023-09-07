@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:catalogo_de_livros/src/models/book.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
@@ -16,6 +14,25 @@ class BookRepository extends ChangeNotifier {
 
   _initRepository() async {
     dbAux = await DB.instance.database;
+  }
+
+  Future<List<Book>> getAllBooks() async {
+    if (dbAux == null) {
+      await _initRepository();
+    }
+    database = dbAux;
+
+    final List<Map<String, dynamic>> bookMaps =
+        await database.query("tb_livro");
+    return List.generate(bookMaps.length, (index) {
+      return Book(
+        id: bookMaps[index]['id'],
+        title: bookMaps[index]['title'],
+        autor: bookMaps[index]['autor'],
+        genre: bookMaps[index]['genre'],
+        publicationYear: bookMaps[index]['publication_year'],
+      );
+    }).toList();
   }
 
   Future<int> addBook(
@@ -35,9 +52,9 @@ class BookRepository extends ChangeNotifier {
       return id;
     } catch (e) {
       print('Erro durante a inserção: $e');
+      return 0;
+    } finally {
+      notifyListeners();
     }
-
-    notifyListeners();
-    return 0;
   }
 }
