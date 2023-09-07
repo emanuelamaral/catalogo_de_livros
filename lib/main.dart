@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'src/pages/login/login_page.dart';
-import 'src/shared/provider/catalogue/book_list.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => BookRepository()),
-    ChangeNotifierProvider(create: (context) => BookList()),
     ChangeNotifierProvider(create: (context) => UserRepository()),
   ], child: const MyApp()));
 }
