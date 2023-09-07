@@ -35,6 +35,21 @@ class BookRepository extends ChangeNotifier {
     }).toList();
   }
 
+  Future<void> removeBook(int id) async {
+    if (dbAux == null) {
+      await _initRepository();
+    }
+    database = dbAux;
+
+    try {
+      await database.delete('tb_livro', where: 'id = ?', whereArgs: [id]);
+    } catch (e) {
+      print('Erro durante a remoção: $e');
+    } finally {
+      notifyListeners();
+    }
+  }
+
   getBook(int id) async {
     if (dbAux == null) {
       await _initRepository();
