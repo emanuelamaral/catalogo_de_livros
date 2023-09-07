@@ -1,10 +1,6 @@
-import 'package:catalogo_de_livros/src/models/book.dart';
 import 'package:catalogo_de_livros/src/repositories/book_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../shared/forms/book_form.dart';
-import '../../shared/provider/catalogue/book_list.dart';
 
 class AddBook extends StatefulWidget {
   const AddBook({super.key});
